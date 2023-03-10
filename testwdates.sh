@@ -36,7 +36,7 @@ setup(){
     #init dates
     mkdir -p dateset
     rm dateset/tmp
-    $REALDATE > dateset/tmp
+    echo "Thu Feb 16 01:37:14 PM CET 2023" > dateset/tmp
 
     #end
 
@@ -138,3 +138,36 @@ assert "$($BINL/mole list -a $DATE1 -b $DATE4 -g bash $ROOT)" '.bash_history: ba
 .bash_profile: bash' "Zobrazení seznamu editovaných souborů. 6. případ"
 assert "$($BINL/mole list -a $DATE2 -b $DATE4 $ROOT)" "" "Zobrazení seznamu editovaných souborů. 7. případ"
 assert "$($BINL/mole list -g grp1,grp2 $ROOT)" "" "Zobrazení seznamu editovaných souborů. 8. případ"
+
+cd $ROOT || exit
+$BINL/mole secret-log
+TESTDATE=$(cat "$TMPDATEPATH/tmp" | tail -1)
+TESTDATE=$(date -d "$TESTDATE" '+%Y-%m-%d_%H-%M-%S')
+assert "$(bunzip2 -k --stdout $HOME/.mole/log_${USER}_$TESTDATE.bz2)" "$ROOT/.bash_history;2023-02-20_13-37-23
+$ROOT/.bash_profile;2023-02-20_13-37-25
+$ROOT/.bashrc;2023-02-16_13-37-17;2023-02-16_13-37-19;2023-02-24_13-37-40
+$ROOT/.gitconfig;2023-02-20_13-37-24;2023-02-24_13-37-38
+$ROOT/.indent.pro;2023-02-16_13-37-20;2023-02-24_13-37-41
+$ROOT/.local/bin/mole;2023-02-16_13-37-18
+$ROOT/proj1/.git/COMMIT_EDITMSG;2023-02-20_13-37-29;2023-02-20_13-37-30
+$ROOT/proj1/.git/config;2023-02-20_13-37-28;2023-02-20_13-37-31
+$ROOT/proj1/.git/info/exclude;2023-02-20_13-37-26
+$ROOT/proj1/main.c;2023-02-20_13-37-32;2023-02-24_13-37-39
+$ROOT/proj1/README.md;2023-02-20_13-37-35
+$ROOT/proj1/struct.c;2023-02-20_13-37-33
+$ROOT/proj1/struct.h;2023-02-20_13-37-34
+$ROOT/.ssh/config;2023-02-16_13-37-16
+$ROOT/.ssh/known_hosts;2023-02-20_13-37-27
+$ROOT/.viminfo;2023-02-16_13-37-21
+$ROOT/.vimrc;2023-02-24_13-37-42"
+
+$BINL/mole secret-log -b 2023-02-22 $ROOT/proj1 $ROOT/.ssh
+TESTDATE=$(cat "$TMPDATEPATH/tmp" | tail -1)
+TESTDATE=$(date -d "$TESTDATE" '+%Y-%m-%d_%H-%M-%S')
+assert "$(bunzip2 -k --stdout $HOME/.mole/log_${USER}_$TESTDATE.bz2)" "$ROOT/proj1/main.c;2023-02-20_13-37-32
+$ROOT/proj1/README.md;2023-02-20_13-37-35
+$ROOT/proj1/struct.c;2023-02-20_13-37-33
+$ROOT/proj1/struct.h;2023-02-20_13-37-34
+$ROOT/.ssh/config;2023-02-16_13-37-16
+$ROOT/.ssh/known_hosts;2023-02-20_13-37-27"
+rm -rf "$HOME/.mole"

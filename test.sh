@@ -75,7 +75,7 @@ cd $ROOT/.ssh || exit
 assert "$($BINL/mole)" "$ROOT/.ssh/known_hosts" 
 assert "$($BINL/mole "$ROOT")" "$ROOT/.vimrc"
 assert "$($BINL/mole -g bash "$ROOT")" "$ROOT/.bash_profile"
-# assert "$($BINL/mole -g bash -b "$DATE2" "$ROOT")" "$ROOT/.bashrc" # NOT YET WORKING
+assert "$($BINL/mole -g bash -b "$DATE2" "$ROOT")" "$ROOT/.bashrc"
 
 cd $ROOT || exit
 assert "$($BINL/mole -m)" "$ROOT/.bashrc"
@@ -103,3 +103,7 @@ assert "$($BINL/mole list -g project,project_readme $ROOT/proj1)" 'main.c:    pr
 README.md: project_readme
 struct.c:  project
 struct.h:  project'
+cd ..
+$BINL/mole secret-log
+echo ""
+$BINL/mole secret-log $ROOT/proj1 $ROOT/.ssh
