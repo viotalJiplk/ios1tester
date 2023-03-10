@@ -1,16 +1,23 @@
-#!/bin/bash
-export BINL=$(realpath ".")
+#!/bin/sh
+BINL=$(realpath ".")
+export BINL
 mkdir -p TEST
 ROOT=$(realpath "./TEST")
-export TMPATH="$(realpath ./dateset)"
-export TMPDATEPATH=$(realpath ./dateset)
+TMPATH="$(realpath ./dateset)"
+export TMPATH
+TMPDATEPATH=$(realpath ./dateset)
+export TMPDATEPATH
+GREEN=$(tput setaf 2)
+RED=$(tput setaf 1)
+NC=$(tput sgr0)
+
 
 assert() {
     if [ "$1" != "$2" ]; then
-        echo "Assertion failed: $1 != $2"
+        echo "${RED}Assertion failed: $1 != $2${NC}"
         echo "$3"
     else
-        echo "OK"
+        echo "${GREEN}OK${NC}"
     fi
 }
 
@@ -43,7 +50,6 @@ setup(){
     export EDITOR=touch
     export MOLE_RC=$ROOT/MOLE_RC
     touch "$MOLE_RC"
-    echo "Generating files. This may take some time"
 
     DATE1=$(./testdate '+%Y-%m-%d')
 
@@ -88,7 +94,6 @@ setup(){
     moleadd $ROOT/.indent.pro
     moleadd $ROOT/.vimrc                                  # (B)
 
-    echo "Files generated."
 }
 
 setup     
@@ -159,7 +164,7 @@ $ROOT/proj1/struct.h;2023-02-20_13-37-34
 $ROOT/.ssh/config;2023-02-16_13-37-16
 $ROOT/.ssh/known_hosts;2023-02-20_13-37-27
 $ROOT/.viminfo;2023-02-16_13-37-21
-$ROOT/.vimrc;2023-02-24_13-37-42"
+$ROOT/.vimrc;2023-02-24_13-37-42" "Vytvoření tajného logu případ 1."
 
 $BINL/mole secret-log -b 2023-02-22 $ROOT/proj1 $ROOT/.ssh
 TESTDATE=$(cat "$TMPDATEPATH/tmp" | tail -1)
@@ -169,5 +174,5 @@ $ROOT/proj1/README.md;2023-02-20_13-37-35
 $ROOT/proj1/struct.c;2023-02-20_13-37-33
 $ROOT/proj1/struct.h;2023-02-20_13-37-34
 $ROOT/.ssh/config;2023-02-16_13-37-16
-$ROOT/.ssh/known_hosts;2023-02-20_13-37-27"
+$ROOT/.ssh/known_hosts;2023-02-20_13-37-27" "Vytvoření tajného logu případ 2."
 rm -rf "$HOME/.mole"

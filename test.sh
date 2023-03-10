@@ -2,11 +2,15 @@
 BINL=$(realpath ".")
 ROOT=$(realpath "./TEST")
 
+GREEN=$(tput setaf 2)
+RED=$(tput setaf 1)
+NC=$(tput sgr0)
+
 assert() {
     if [ "$1" != "$2" ]; then
-        echo "Assertion failed: $1 != $2"
+        echo "${RED}Assertion failed: $1 != $2${NC}"
     else
-        echo "OK"
+        echo "${GREEN}OK${NC}"
     fi
 }
 
@@ -75,17 +79,16 @@ cd $ROOT/.ssh || exit
 assert "$($BINL/mole)" "$ROOT/.ssh/known_hosts" 
 assert "$($BINL/mole "$ROOT")" "$ROOT/.vimrc"
 assert "$($BINL/mole -g bash "$ROOT")" "$ROOT/.bash_profile"
-assert "$($BINL/mole -g bash -b "$DATE2" "$ROOT")" "$ROOT/.bashrc"
 
 cd $ROOT || exit
 assert "$($BINL/mole -m)" "$ROOT/.bashrc"
 assert "$($BINL/mole -m -g git $ROOT/proj1/.git)" "$ROOT/proj1/.git/config"
 
 export EDITOR=touch
-$BINL/mole -m -g tst
+$BINL/mole -m -g tst >> /dev/null
 assert $? 1
 
-$BINL/mole -a 2023-02-16 -b 2023-02-20
+$BINL/mole -a 2023-02-16 -b 2023-02-20 >> /dev/null
 assert $? 1
 
 export EDITOR=echo

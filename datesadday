@@ -2,4 +2,3 @@
 VIRTDATE=$(cat "$TMPDATEPATH/tmp" | tail -1)
 NEWDATE=$(date -d "$VIRTDATE+1 days")
 echo "$NEWDATE" >> "$TMPDATEPATH/tmp"
-echo $NEWDATE
