@@ -1,0 +1,5 @@
+#!/bin/sh
+VIRTDATE=$(cat $TMPATH/tmp | tail -1)
+NEWDATE=$(date -d "$VIRTDATE+1 seconds")
+echo "$NEWDATE" >> $TMPATH/tmp
+echo $(date -d "$NEWDATE" "$@")
