@@ -33,7 +33,7 @@ moleadd(){
 export EDITOR=touch
 export MOLE_RC=$ROOT/MOLE_RC
 rm "$MOLE_RC"
-touch "$MOLE_RC"
+supertouch "$MOLE_RC"
 echo "Generating files. This may take some time"
 
 sleep 1
