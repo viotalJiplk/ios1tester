@@ -41,7 +41,7 @@ DATE1=$(date '+%Y-%m-%d')
 sleep 1
 moleadd $ROOT/.ssh/config
 moleadd -g bash $ROOT/.bashrc
-moleadd $ROOT/.local/bin/./mole
+moleadd $ROOT/.local/bin/mole
 moleadd -g bash $ROOT/.bashrc                         # (D)
 moleadd $ROOT/.indent.pro
 moleadd $ROOT/.viminfo
