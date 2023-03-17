@@ -36,12 +36,18 @@ moleadd(){
 }
 
 setup(){
-    rm -rf TEST
+    if [ -d "TEST" ]; then
+        echo "removing folder TEST"
+        rm -rf TEST
+    fi
     mkdir -p TEST
 
     #init dates
     mkdir -p "$TMPDATEPATH"
-    rm $TMPDATEPATH/tmp
+    if [ -f "$TMPDATEPATH/tmp" ]; then
+        echo "removing $TMPDATEPATH/tmp"
+        rm "$TMPDATEPATH/tmp"
+    fi
     echo "Thu Feb 16 01:37:14 PM CET 2023" > $TMPDATEPATH/tmp
 
     #end
@@ -175,4 +181,7 @@ $ROOTSLOZKA/proj1/struct.c;2023-02-20_13-37-33
 $ROOTSLOZKA/proj1/struct.h;2023-02-20_13-37-34
 $ROOTSLOZKA/.ssh/config;2023-02-16_13-37-16
 $ROOTSLOZKA/.ssh/known_hosts;2023-02-20_13-37-27" "Vytvoření tajného logu případ 2."
-rm -rf "$HOME/.mole"
+if [ -d "$HOME/.mole" ]; then
+    echo "removing $HOME/.mole"
+    rm -rf "$HOME/.mole"
+fi

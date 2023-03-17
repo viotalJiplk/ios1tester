@@ -32,7 +32,10 @@ moleadd(){
 
 export EDITOR=touch
 export MOLE_RC=$ROOTSLOZKA/MOLE_RC
-rm "$MOLE_RC"
+if [ -f "$MOLE_RC" ]; then
+    echo "removing $MOLE_RC"
+    rm "$MOLE_RC"
+fi
 supertouch "$MOLE_RC"
 echo "Generating files. This may take some time"
 
