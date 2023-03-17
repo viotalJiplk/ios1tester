@@ -1,10 +1,8 @@
 #!/bin/sh
 BINSLOZKA=$(realpath ".")
-export BINL
+export BINSLOZKA
 mkdir -p TEST
 ROOTSLOZKA=$(realpath "./TEST")
-TMPATH="$(realpath ./dateset)"
-export TMPATH
 TMPDATEPATH=$(realpath ./dateset)
 export TMPDATEPATH
 GREEN=$(tput setaf 2)
