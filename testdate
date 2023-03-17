@@ -1,5 +1,12 @@
 #!/bin/sh
-VIRTDATE=$(cat $TMPATH/tmp | tail -1)
-NEWDATE=$(date -d "$VIRTDATE+1 seconds")
-echo "$NEWDATE" >> $TMPATH/tmp
-echo $(date -d "$NEWDATE" "$@")
+if [ -f "$TMPDATEPATH/tmp" ]; then
+    VIRTDATE=$(cat $TMPDATEPATH/tmp | tail -1)
+    NEWDATE=$(date -d "$VIRTDATE+1 seconds")
+    echo "$NEWDATE" >> $TMPDATEPATH/tmp
+    echo "$(date -d "$NEWDATE" "$@")"
+else
+    echo "\$TMPDATEPATH is unset or"
+    echo "$TMPDATEPATH/tmp is not a file"
+    echo "This could be a bug please contact viotal."
+    exit 1
+fi
