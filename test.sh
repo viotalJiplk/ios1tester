@@ -114,3 +114,4 @@ assert "$($BINSLOZKA/mole list -g project,project_readme $ROOTSLOZKA/proj1)" 'ma
 README.md: project_readme
 struct.c:  project
 struct.h:  project'
+echo "You should use testwdates.sh! see README.md"
