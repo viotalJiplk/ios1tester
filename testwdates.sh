@@ -3,6 +3,7 @@ BINSLOZKA=$(realpath ".")
 export BINSLOZKA
 mkdir -p TEST
 ROOTSLOZKA=$(realpath "./TEST")
+mkdir -p "dateset"
 TMPDATEPATH=$(realpath ./dateset)
 export TMPDATEPATH
 GREEN=$(tput setaf 2)
@@ -39,9 +40,9 @@ setup(){
     mkdir -p TEST
 
     #init dates
-    mkdir -p dateset
-    rm dateset/tmp
-    echo "Thu Feb 16 01:37:14 PM CET 2023" > dateset/tmp
+    mkdir -p "$TMPDATEPATH"
+    rm $TMPDATEPATH/tmp
+    echo "Thu Feb 16 01:37:14 PM CET 2023" > $TMPDATEPATH/tmp
 
     #end
 
