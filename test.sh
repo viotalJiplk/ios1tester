@@ -99,6 +99,7 @@ assert "$($BINSLOZKA/mole list $ROOTSLOZKA)" '.bash_history: bash
 .indent.pro:   -
 .viminfo:      -
 .vimrc:        -'
+
 assert "$($BINSLOZKA/mole list -g bash $ROOTSLOZKA)" '.bash_history: bash
 .bash_profile: bash
 .bashrc:       bash'
@@ -106,7 +107,3 @@ assert "$($BINSLOZKA/mole list -g project,project_readme $ROOTSLOZKA/proj1)" 'ma
 README.md: project_readme
 struct.c:  project
 struct.h:  project'
-cd ..
-$BINSLOZKA/mole secret-log
-echo ""
-$BINSLOZKA/mole secret-log $ROOTSLOZKA/proj1 $ROOTSLOZKA/.ssh
