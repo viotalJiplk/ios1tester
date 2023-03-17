@@ -1,8 +1,8 @@
 #!/bin/sh
-BINL=$(realpath ".")
+BINSLOZKA=$(realpath ".")
 export BINL
 mkdir -p TEST
-ROOT=$(realpath "./TEST")
+ROOTSLOZKA=$(realpath "./TEST")
 TMPATH="$(realpath ./dateset)"
 export TMPATH
 TMPDATEPATH=$(realpath ./dateset)
@@ -29,10 +29,10 @@ supertouch(){
 moleadd(){
     if [ "$1" = "-g" ];then
         supertouch "$3"   
-        $BINL/mole "$1" "$2" "$3"
+        $BINSLOZKA/mole "$1" "$2" "$3"
     else
         supertouch "$1"
-        $BINL/mole "$1"
+        $BINSLOZKA/mole "$1"
     fi
 }
 
@@ -48,18 +48,18 @@ setup(){
     #end
 
     export EDITOR=touch
-    export MOLE_RC=$ROOT/MOLE_RC
+    export MOLE_RC=$ROOTSLOZKA/MOLE_RC
     touch "$MOLE_RC"
 
     DATE1=$(./testdate '+%Y-%m-%d')
 
 
-    moleadd $ROOT/.ssh/config
-    moleadd -g bash $ROOT/.bashrc
-    moleadd $ROOT/.local/bin/mole
-    moleadd -g bash $ROOT/.bashrc                         # (D)
-    moleadd $ROOT/.indent.pro
-    moleadd $ROOT/.viminfo
+    moleadd $ROOTSLOZKA/.ssh/config
+    moleadd -g bash $ROOTSLOZKA/.bashrc
+    moleadd $ROOTSLOZKA/.local/bin/mole
+    moleadd -g bash $ROOTSLOZKA/.bashrc                         # (D)
+    moleadd $ROOTSLOZKA/.indent.pro
+    moleadd $ROOTSLOZKA/.viminfo
 
     ./datesadday
     ./datesadday
@@ -67,19 +67,19 @@ setup(){
     ./datesadday
     DATE2=$(./testdate '+%Y-%m-%d')
 
-    moleadd -g bash $ROOT/.bash_history
-    moleadd -g git $ROOT/.gitconfig
-    moleadd -g bash $ROOT/.bash_profile                   # (C)
-    moleadd -g git $ROOT/proj1/.git/info/exclude
-    moleadd $ROOT/.ssh/known_hosts                        # (A)
-    moleadd -g git $ROOT/proj1/.git/config
-    moleadd -g git $ROOT/proj1/.git/COMMIT_EDITMSG
-    moleadd $ROOT/proj1/.git/COMMIT_EDITMSG
-    moleadd -g git $ROOT/proj1/.git/config                # (F)
-    moleadd -g project $ROOT/proj1/main.c
-    moleadd -g project $ROOT/proj1/struct.c
-    moleadd -g project $ROOT/proj1/struct.h
-    moleadd -g project_readme $ROOT/proj1/README.md
+    moleadd -g bash $ROOTSLOZKA/.bash_history
+    moleadd -g git $ROOTSLOZKA/.gitconfig
+    moleadd -g bash $ROOTSLOZKA/.bash_profile                   # (C)
+    moleadd -g git $ROOTSLOZKA/proj1/.git/info/exclude
+    moleadd $ROOTSLOZKA/.ssh/known_hosts                        # (A)
+    moleadd -g git $ROOTSLOZKA/proj1/.git/config
+    moleadd -g git $ROOTSLOZKA/proj1/.git/COMMIT_EDITMSG
+    moleadd $ROOTSLOZKA/proj1/.git/COMMIT_EDITMSG
+    moleadd -g git $ROOTSLOZKA/proj1/.git/config                # (F)
+    moleadd -g project $ROOTSLOZKA/proj1/main.c
+    moleadd -g project $ROOTSLOZKA/proj1/struct.c
+    moleadd -g project $ROOTSLOZKA/proj1/struct.h
+    moleadd -g project_readme $ROOTSLOZKA/proj1/README.md
 
     ./datesadday
     ./datesadday
@@ -88,92 +88,92 @@ setup(){
     ./datesadday
     DATE4=$(./testdate '+%Y-%m-%d')
 
-    moleadd -g git2 $ROOT/.gitconfig
-    moleadd $ROOT/proj1/main.c
-    moleadd $ROOT/.bashrc                                 # (E)
-    moleadd $ROOT/.indent.pro
-    moleadd $ROOT/.vimrc                                  # (B)
+    moleadd -g git2 $ROOTSLOZKA/.gitconfig
+    moleadd $ROOTSLOZKA/proj1/main.c
+    moleadd $ROOTSLOZKA/.bashrc                                 # (E)
+    moleadd $ROOTSLOZKA/.indent.pro
+    moleadd $ROOTSLOZKA/.vimrc                                  # (B)
 
 }
 
 setup     
 export EDITOR=echo
-cd $ROOT/.ssh || exit
-assert "$($BINL/mole)" "$ROOT/.ssh/known_hosts" "(odpovídá řádku A)"
-assert "$($BINL/mole "$ROOT")" "$ROOT/.vimrc" "(odpovídá řádku B)"
-assert "$($BINL/mole -g bash "$ROOT")" "$ROOT/.bash_profile" "(odpovídá řádku C)"
-assert "$($BINL/mole -g bash -b "$DATE2" "$ROOT")" "$ROOT/.bashrc" "(odpovídá řádku D)"
+cd $ROOTSLOZKA/.ssh || exit
+assert "$($BINSLOZKA/mole)" "$ROOTSLOZKA/.ssh/known_hosts" "(odpovídá řádku A)"
+assert "$($BINSLOZKA/mole "$ROOTSLOZKA")" "$ROOTSLOZKA/.vimrc" "(odpovídá řádku B)"
+assert "$($BINSLOZKA/mole -g bash "$ROOTSLOZKA")" "$ROOTSLOZKA/.bash_profile" "(odpovídá řádku C)"
+assert "$($BINSLOZKA/mole -g bash -b "$DATE2" "$ROOTSLOZKA")" "$ROOTSLOZKA/.bashrc" "(odpovídá řádku D)"
 
-cd $ROOT || exit
-assert "$($BINL/mole -m)" "$ROOT/.bashrc" "(odpovídá řádku E)"
-assert "$($BINL/mole -m -g git $ROOT/proj1/.git)" "$ROOT/proj1/.git/config" "(odpovídá řádku F; ve skupině git byl daný soubor editován jako jediný dvakrát, zbytek souborů jednou)"
+cd $ROOTSLOZKA || exit
+assert "$($BINSLOZKA/mole -m)" "$ROOTSLOZKA/.bashrc" "(odpovídá řádku E)"
+assert "$($BINSLOZKA/mole -m -g git $ROOTSLOZKA/proj1/.git)" "$ROOTSLOZKA/proj1/.git/config" "(odpovídá řádku F; ve skupině git byl daný soubor editován jako jediný dvakrát, zbytek souborů jednou)"
 
 export EDITOR=touch
-$BINL/mole -m -g tst >> /dev/null
+$BINSLOZKA/mole -m -g tst >> /dev/null
 assert $? 1
 
-$BINL/mole -a 2023-02-16 -b 2023-02-20 >> /dev/null
+$BINSLOZKA/mole -a 2023-02-16 -b 2023-02-20 >> /dev/null
 assert $? 1
 
 cd .. || exit
 setup
 export EDITOR=echo
-assert "$($BINL/mole list $ROOT)" '.bash_history: bash
+assert "$($BINSLOZKA/mole list $ROOTSLOZKA)" '.bash_history: bash
 .bash_profile: bash
 .bashrc:       bash
 .gitconfig:    git,git2
 .indent.pro:   -
 .viminfo:      -
 .vimrc:        -' "Zobrazení seznamu editovaných souborů. 1. případ"
-assert "$($BINL/mole list -g bash $ROOT)" '.bash_history: bash
+assert "$($BINSLOZKA/mole list -g bash $ROOTSLOZKA)" '.bash_history: bash
 .bash_profile: bash
 .bashrc:       bash' "Zobrazení seznamu editovaných souborů. 2. případ"
-assert "$($BINL/mole list -g project,project_readme $ROOT/proj1)" 'main.c:    project
+assert "$($BINSLOZKA/mole list -g project,project_readme $ROOTSLOZKA/proj1)" 'main.c:    project
 README.md: project_readme
 struct.c:  project
 struct.h:  project' "Zobrazení seznamu editovaných souborů. 3. případ"
-assert "$($BINL/mole list -b $DATE2 $ROOT)" '.bashrc:     bash
+assert "$($BINSLOZKA/mole list -b $DATE2 $ROOTSLOZKA)" '.bashrc:     bash
 .indent.pro: -
 .viminfo:    -' "Zobrazení seznamu editovaných souborů. 4. případ"
-assert "$($BINL/mole list -a $DATE3 $ROOT)" '.bashrc:     -
+assert "$($BINSLOZKA/mole list -a $DATE3 $ROOTSLOZKA)" '.bashrc:     -
 .gitconfig:  git2
 .indent.pro: -
 .vimrc:      -' "Zobrazení seznamu editovaných souborů. 5. případ" # bug in example ".viminfo" was not edited ".vimrc" was and missing : after .gitconfig
-assert "$($BINL/mole list -a $DATE1 -b $DATE4 -g bash $ROOT)" '.bash_history: bash
+assert "$($BINSLOZKA/mole list -a $DATE1 -b $DATE4 -g bash $ROOTSLOZKA)" '.bash_history: bash
 .bash_profile: bash' "Zobrazení seznamu editovaných souborů. 6. případ"
-assert "$($BINL/mole list -a $DATE2 -b $DATE4 $ROOT)" "" "Zobrazení seznamu editovaných souborů. 7. případ"
-assert "$($BINL/mole list -g grp1,grp2 $ROOT)" "" "Zobrazení seznamu editovaných souborů. 8. případ"
+assert "$($BINSLOZKA/mole list -a $DATE2 -b $DATE4 $ROOTSLOZKA)" "" "Zobrazení seznamu editovaných souborů. 7. případ"
+assert "$($BINSLOZKA/mole list -g grp1,grp2 $ROOTSLOZKA)" "" "Zobrazení seznamu editovaných souborů. 8. případ"
 
-cd $ROOT || exit
-$BINL/mole secret-log
+cd $ROOTSLOZKA || exit
+$BINSLOZKA/mole secret-log
 USER=$(whoami)
 TESTDATE=$(cat "$TMPDATEPATH/tmp" | tail -1)
 TESTDATE=$(date -d "$TESTDATE" '+%Y-%m-%d_%H-%M-%S')
-assert "$(bunzip2 -k --stdout $HOME/.mole/log_$USER\_$TESTDATE.bz2)" "$ROOT/.bash_history;2023-02-20_13-37-23
-$ROOT/.bash_profile;2023-02-20_13-37-25
-$ROOT/.bashrc;2023-02-16_13-37-17;2023-02-16_13-37-19;2023-02-24_13-37-40
-$ROOT/.gitconfig;2023-02-20_13-37-24;2023-02-24_13-37-38
-$ROOT/.indent.pro;2023-02-16_13-37-20;2023-02-24_13-37-41
-$ROOT/.local/bin/mole;2023-02-16_13-37-18
-$ROOT/proj1/.git/COMMIT_EDITMSG;2023-02-20_13-37-29;2023-02-20_13-37-30
-$ROOT/proj1/.git/config;2023-02-20_13-37-28;2023-02-20_13-37-31
-$ROOT/proj1/.git/info/exclude;2023-02-20_13-37-26
-$ROOT/proj1/main.c;2023-02-20_13-37-32;2023-02-24_13-37-39
-$ROOT/proj1/README.md;2023-02-20_13-37-35
-$ROOT/proj1/struct.c;2023-02-20_13-37-33
-$ROOT/proj1/struct.h;2023-02-20_13-37-34
-$ROOT/.ssh/config;2023-02-16_13-37-16
-$ROOT/.ssh/known_hosts;2023-02-20_13-37-27
-$ROOT/.viminfo;2023-02-16_13-37-21
-$ROOT/.vimrc;2023-02-24_13-37-42" "Vytvoření tajného logu případ 1."
+assert "$(bunzip2 -k --stdout $HOME/.mole/log_$USER\_$TESTDATE.bz2)" "$ROOTSLOZKA/.bash_history;2023-02-20_13-37-23
+$ROOTSLOZKA/.bash_profile;2023-02-20_13-37-25
+$ROOTSLOZKA/.bashrc;2023-02-16_13-37-17;2023-02-16_13-37-19;2023-02-24_13-37-40
+$ROOTSLOZKA/.gitconfig;2023-02-20_13-37-24;2023-02-24_13-37-38
+$ROOTSLOZKA/.indent.pro;2023-02-16_13-37-20;2023-02-24_13-37-41
+$ROOTSLOZKA/.local/bin/mole;2023-02-16_13-37-18
+$ROOTSLOZKA/proj1/.git/COMMIT_EDITMSG;2023-02-20_13-37-29;2023-02-20_13-37-30
+$ROOTSLOZKA/proj1/.git/config;2023-02-20_13-37-28;2023-02-20_13-37-31
+$ROOTSLOZKA/proj1/.git/info/exclude;2023-02-20_13-37-26
+$ROOTSLOZKA/proj1/main.c;2023-02-20_13-37-32;2023-02-24_13-37-39
+$ROOTSLOZKA/proj1/README.md;2023-02-20_13-37-35
+$ROOTSLOZKA/proj1/struct.c;2023-02-20_13-37-33
+$ROOTSLOZKA/proj1/struct.h;2023-02-20_13-37-34
+$ROOTSLOZKA/.ssh/config;2023-02-16_13-37-16
+$ROOTSLOZKA/.ssh/known_hosts;2023-02-20_13-37-27
+$ROOTSLOZKA/.viminfo;2023-02-16_13-37-21
+$ROOTSLOZKA/.vimrc;2023-02-24_13-37-42" "Vytvoření tajného logu případ 1."
 
-$BINL/mole secret-log -b 2023-02-22 $ROOT/proj1 $ROOT/.ssh
+$BINSLOZKA/mole secret-log -b 2023-02-22 $ROOTSLOZKA/proj1 $ROOTSLOZKA/.ssh
 TESTDATE=$(cat "$TMPDATEPATH/tmp" | tail -1)
 TESTDATE=$(date -d "$TESTDATE" '+%Y-%m-%d_%H-%M-%S')
-assert "$(bunzip2 -k --stdout $HOME/.mole/log_$USER\_$TESTDATE.bz2)" "$ROOT/proj1/main.c;2023-02-20_13-37-32
-$ROOT/proj1/README.md;2023-02-20_13-37-35
-$ROOT/proj1/struct.c;2023-02-20_13-37-33
-$ROOT/proj1/struct.h;2023-02-20_13-37-34
-$ROOT/.ssh/config;2023-02-16_13-37-16
-$ROOT/.ssh/known_hosts;2023-02-20_13-37-27" "Vytvoření tajného logu případ 2."
+assert "$(bunzip2 -k --stdout $HOME/.mole/log_$USER\_$TESTDATE.bz2)" "$ROOTSLOZKA/proj1/main.c;2023-02-20_13-37-32
+$ROOTSLOZKA/proj1/README.md;2023-02-20_13-37-35
+$ROOTSLOZKA/proj1/struct.c;2023-02-20_13-37-33
+$ROOTSLOZKA/proj1/struct.h;2023-02-20_13-37-34
+$ROOTSLOZKA/.ssh/config;2023-02-16_13-37-16
+$ROOTSLOZKA/.ssh/known_hosts;2023-02-20_13-37-27" "Vytvoření tajného logu případ 2."
 rm -rf "$HOME/.mole"
