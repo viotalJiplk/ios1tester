@@ -3,15 +3,15 @@
 ## How to run
 1. Put all files from this repo to directory with your mole shell file.
 2. Set execution bit of files `testwdates.sh` `datesadday` `testdate`.
-3. change all date commands in your mole file to `$BINL/testdate`
+3. change all date commands in your mole file to `$BINSLOZKA/testdate`
 (This will allow us test datefiltering)
 or add branching:
 ```
-if [ -z "${BINL}" ]; then
+if [ -z "${BINSLOZKA}" ]; then
     echo $(date)
 else
     # for testing
-    echo $($BINL/testdate)
+    echo $($BINSLOZKA/testdate)
 fi
 ```
 ## How to run without datefiltering testing 
