@@ -1,7 +1,7 @@
 #!/bin/sh
 if [ -f "$TMPDATEPATH/tmp" ]; then
     VIRTDATE=$(cat $TMPDATEPATH/tmp | tail -1)
-    NEWDATE=$(date -d "$VIRTDATE+1 seconds")
+    NEWDATE=$(date -d "$VIRTDATE+1 seconds" "+%Y-%m-%d %H:%M:%S")
     echo "$NEWDATE" >> $TMPDATEPATH/tmp
     echo "$(date -d "$NEWDATE" "$@")"
 else
