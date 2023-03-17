@@ -10,8 +10,8 @@ assert() {
     if [ "$1" != "$2" ]; then
         echo "${RED}Assertion failed: $1 != $2${NC}"
         #https://unix.stackexchange.com/questions/582796/using-the-diff-command-to-compare-two-s
-        printf '%s\n' "$1" >tmpfile
-        printf '%s\n' "$2" | diff tmpfile -
+        printf '%s\n' "$1" | od -c >tmpfile
+        printf '%s\n' "$2" | od -c | diff tmpfile -
         rm -f tmpfile
     else
         echo "${GREEN}OK${NC}"
