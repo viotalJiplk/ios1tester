@@ -9,6 +9,10 @@ NC=$(tput sgr0)
 assert() {
     if [ "$1" != "$2" ]; then
         echo "${RED}Assertion failed: $1 != $2${NC}"
+        #https://unix.stackexchange.com/questions/582796/using-the-diff-command-to-compare-two-s
+        printf '%s\n' "$1" >tmpfile
+        printf '%s\n' "$2" | diff tmpfile -
+        rm -f tmpfile
     else
         echo "${GREEN}OK${NC}"
     fi
@@ -108,5 +112,5 @@ assert "$($BINSLOZKA/mole list -g bash $ROOTSLOZKA)" '.bash_history: bash
 .bashrc:       bash'
 assert "$($BINSLOZKA/mole list -g project,project_readme $ROOTSLOZKA/proj1)" 'main.c:    project
 README.md: project_readme
-struct.c:  project
+struct.c:  projec
 struct.h:  project'
