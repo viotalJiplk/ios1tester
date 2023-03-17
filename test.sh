@@ -112,5 +112,5 @@ assert "$($BINSLOZKA/mole list -g bash $ROOTSLOZKA)" '.bash_history: bash
 .bashrc:       bash'
 assert "$($BINSLOZKA/mole list -g project,project_readme $ROOTSLOZKA/proj1)" 'main.c:    project
 README.md: project_readme
-struct.c:  projec
+struct.c:  project
 struct.h:  project'
