@@ -56,7 +56,7 @@ setup(){
 
     moleadd $ROOT/.ssh/config
     moleadd -g bash $ROOT/.bashrc
-    moleadd $ROOT/.local/bin/./mole
+    moleadd $ROOT/.local/bin/mole
     moleadd -g bash $ROOT/.bashrc                         # (D)
     moleadd $ROOT/.indent.pro
     moleadd $ROOT/.viminfo
@@ -146,9 +146,10 @@ assert "$($BINL/mole list -g grp1,grp2 $ROOT)" "" "Zobrazení seznamu editovaný
 
 cd $ROOT || exit
 $BINL/mole secret-log
+USER=$(whoami)
 TESTDATE=$(cat "$TMPDATEPATH/tmp" | tail -1)
 TESTDATE=$(date -d "$TESTDATE" '+%Y-%m-%d_%H-%M-%S')
-assert "$(bunzip2 -k --stdout $HOME/.mole/log_${USER}_$TESTDATE.bz2)" "$ROOT/.bash_history;2023-02-20_13-37-23
+assert "$(bunzip2 -k --stdout $HOME/.mole/log_$USER\_$TESTDATE.bz2)" "$ROOT/.bash_history;2023-02-20_13-37-23
 $ROOT/.bash_profile;2023-02-20_13-37-25
 $ROOT/.bashrc;2023-02-16_13-37-17;2023-02-16_13-37-19;2023-02-24_13-37-40
 $ROOT/.gitconfig;2023-02-20_13-37-24;2023-02-24_13-37-38
@@ -169,7 +170,7 @@ $ROOT/.vimrc;2023-02-24_13-37-42" "Vytvoření tajného logu případ 1."
 $BINL/mole secret-log -b 2023-02-22 $ROOT/proj1 $ROOT/.ssh
 TESTDATE=$(cat "$TMPDATEPATH/tmp" | tail -1)
 TESTDATE=$(date -d "$TESTDATE" '+%Y-%m-%d_%H-%M-%S')
-assert "$(bunzip2 -k --stdout $HOME/.mole/log_${USER}_$TESTDATE.bz2)" "$ROOT/proj1/main.c;2023-02-20_13-37-32
+assert "$(bunzip2 -k --stdout $HOME/.mole/log_$USER\_$TESTDATE.bz2)" "$ROOT/proj1/main.c;2023-02-20_13-37-32
 $ROOT/proj1/README.md;2023-02-20_13-37-35
 $ROOT/proj1/struct.c;2023-02-20_13-37-33
 $ROOT/proj1/struct.h;2023-02-20_13-37-34
