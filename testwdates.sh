@@ -52,7 +52,7 @@ setup(){
         echo "removing $TMPDATEPATH/tmp"
         rm "$TMPDATEPATH/tmp"
     fi
-    echo "Thu Feb 16 01:37:14 PM CET 2023" > $TMPDATEPATH/tmp
+    echo "2023-02-16 13:37:14" > $TMPDATEPATH/tmp
 
     #end
 
